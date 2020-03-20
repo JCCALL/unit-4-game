@@ -10,7 +10,7 @@ html {
 body {
     height: 100%;
     width: 100%;
-    margin 0 auto;
+    margin: 0 auto;
     background-image: url("../images/background.jpg");
     background-size: 100% 100%;
 }
@@ -27,8 +27,11 @@ h1 {
     color: #f5f5f5;
     font-size: 20px;
     font-weight: bolder;
+    margin-left: 5vw;
 }
-
+#enemy-choice{
+    margin-top: 100px;
+}
 #attack {
     height: 100px;
     width: 75px;
@@ -38,8 +41,112 @@ h1 {
     background-size: 75px 100px;
     padding: 10px;
     cursor: pointer;
+    position: absolute;
 }
 
 #attack:hover {
     background-color: #f5f5f5;
+}
+
+.clearfix {
+    clear: both;
+}
+
+.select {
+    text-align: center;
+    position: relative;
+    width: 13vw;
+    height: 40vh;
+    margin-right: 0.5vw;
+    float: left;
+    margin-bottom: 5.5vh;
+    cursor: pointer;
+}
+
+.user-character {
+    text-align: center;
+    position: relative;
+    width: 18vw;
+    height: 49vh;
+    margin-right: 25px;
+    margin-bottom: 40px;
+    margin-left: 15vw;
+    cursor: pointer;
+}
+
+.enemy {
+    text-align: center;
+    position: relative;
+    width: 8vw;
+    height: 24vh;
+    margin-right: 25px;
+    float: left;
+    margin-bottom: 40px;
+    cursor: pointer;
+}
+
+.defender {
+    text-align: center;
+    position: relative;
+    width: 18vw;
+    height: 49vh;
+    margin-right: 25px;
+    margin-bottom: 40px;
+    cursor: pointer;
+}
+
+#your-character {
+    margin-left: 20vw;
+}
+
+#defender {
+    position: absolute;
+    top: 9vh;
+    right: 20vw;
+}
+
+.location {
+    position: absolute;
+    top: 28vh;
+    left: 45vw;
+}
+
+#attack {
+    visibility: hidden;
+}
+
+#message {
+    font-family: trajan;
+    position: absolute;
+    color: #b1b1b3;
+    top: 43vh;
+    left: 31vw;
+    z-index: 1;
+}
+
+.winner {
+    position: absolute;
+    top: 8vh;
+    left: 10vw;
+    z-index: 0;
+    width: 70vw;
+    height: 92vh;
+}
+
+.hitPoints {
+    color: #f5f5f5;
+    font-weight: bold;
+    text-align: center;
+}
+
+.charPic {
+    width: 100%;
+    height: 100%;
+}
+
+.name {
+    text-align: center;
+    font-family: trajan;
+    font-weight: bold;
+    color: #f5f5f5;
 }

@@ -2,56 +2,190 @@ $(document).ready(function () {
 
     var characters = {
 
-        'Batman' : {
+        "Batman": {
             name: "Batman",
-            hp: 150,
-            ap: 17,
-            cap: 20,
-            image: "assets/images/batman.png"
-        },
-
-        'Nightwing' : {
-            name: "Nightwing",
-            hp: 120,
-            ap: 11,
-            cap: 15,
-            image: "assets/images/nightwing.png"
-        },
-
-        'Joker' : {
-            name: "Joker",
             hp: 140,
-            ap: 10,
-            cap: 19,
-            image: "assets/images/joker.png"
+            ap: 13,
+            cap: 15,
+            image: "assets/images/batman"
         },
 
-        'Deathstroke' : {
-            name: "Deathstroke",
+        "Nightwing": {
+            name: "Nightwing",
+            hp: 145,
+            ap: 11,
+            cap: 18,
+            image: "assets/images/nightwing"
+        },
+
+        'Joker': {
+            name: "Joker",
             hp: 160,
-            ap: 14,
-            cap: 23,
-            image: "assets/images/deathstroke.png"
+            ap: 9,
+            cap: 20,
+            image: "assets/images/joker"
         },
 
-        'Bane' : {
-            name: "Bane",
-            hp: 180,
-            ap: 15,
+        'Deathstroke': {
+            name: "Deathstroke",
+            hp: 115,
+            ap: 18,
             cap: 25,
-            image: "assets/images/batman.png"
+            image: "assets/images/deathstroke"
         },
+
+        'Bane': {
+            name: "Bane",
+            hp: 135,
+            ap: 12,
+            cap: 30,
+            image: "assets/images/bane"
+        }
     };
-    console.log(characters);
-    
-    function render(char, area){
-        var charDiv = $("<div class='character' data-name'>" + char.name +"'>");
-        var charName = $("<div class= 'character-name'>").text(char.name);
-        var charImage = $("<img alt ='image' class 'character-image'>").attr("src", char.imageUrl);
-        var charHp = $("<div classes='character-hp'>").text(char.hp);
-        charDiv.append(charName).append(charImage).append (charHp);
+
+    var chosenChar;
+    var chosenEnemy;
+    var chosenEnemyIndex = 0;
+    var enemies = [];
+    var victories = 0;
+    var turn = 1;
+
+    function load(char, area) {
+        str = char.name.replace(/\s+/g, '');
+        var charDiv = $("<div class='character' id='" + char.name + "'/div>");
+        var charName = $("<p class='name' /p>").text(char.name);
+        var charImage = $("<img class='charPic' id='" + str.toLowerCase() + "'>").attr("src", char.image + ".png");
+        var charHP = $("<p class='hitPoints' /p>").text(char.hp);
+        charDiv.append(charName).append(charImage).append(charHP);
         $(area).append(charDiv);
-    };
-    
+
+        if (area === "#character-choice") {
+            charDiv.addClass("select");
+        }
+        else {
+            charDiv.removeClass("select");
+        }
+        if (area === "#enemies") {
+            charDiv.addClass("enemy");
+        }
+        if (area === "#defender") {
+            charDiv.addClass("defender");
+            var title = $("<h1>");
+            title.text("Defender");
+            $(area).prepend(title);
+        }
+        if (area === "#character") {
+            charDiv.addClass("user-character");
+            var title = $("<h1>");
+            title.text("Your Character");
+            $(area).prepend(title);
+        }
+    }
+
+    for (var key in characters) {
+        if (characters.hasOwnProperty(key)) {
+            load(characters[key], "#character-choice");
+        }
+    }
+
+    $(document).on('click', '.select', function () {
+
+        var name = $(this).attr("id");
+
+        if (name !== chosenChar) {
+            for (var key in characters) {
+                if (key === name) {
+                    chosenChar = characters[key];
+                }
+                else {
+                    enemies.push(characters[key]);
+                }
+            }
+            $("#character-choice").empty();
+            load(chosenChar, '#character');
+
+            for (var i = 0; i < enemies.length; i++) {
+                load(enemies[i], '#enemies');
+            }
+        }
     });
 
+    $(document).on('click', '.enemy', function () {
+
+        var name = $(this).attr("id");
+
+        if ($('#defender').children().length === 0) {
+            for (var i = 0; i < enemies.length; i++) {
+                if (enemies[i].name === name) {
+                    chosenEnemy = enemies[i];
+                    chosenEnemyIndex = i;
+                }
+            }
+            enemies.splice(chosenEnemyIndex, 1);
+            load(chosenEnemy, "#defender");
+            $("#attack").css("visibility", "visible");
+            $("#enemies").empty();
+            for (var i = 0; i < enemies.length; i++) {
+                load(enemies[i], '#enemies');
+            }
+        }
+    });
+
+    $(document).on('click', '#attack', function () {
+
+        $("#message").text("You attacked " + chosenEnemy.name + " for " + (chosenChar.ap * turn) + " damage.");
+        $("#message").append("<br>")
+        chosenEnemy.hp = (chosenEnemy.hp - (chosenChar.ap * turn));
+
+        if (chosenEnemy.hp > 0) {
+            $("#defender").empty();
+            load(chosenEnemy, "#defender");
+
+            $("#message").append(chosenEnemy.name + " attacked you back for " + chosenEnemy.cap + " damage.");
+
+            chosenChar.hp = (chosenChar.hp - chosenEnemy.cap);
+
+            $("#character").empty();
+            load(chosenChar, "#character");
+
+            if (chosenChar.hp <= 0) {
+                $("#attack").remove();
+                $("#message").empty();
+                $("#message").text("You Lose! Try Again!!!");
+                $("#message").append($('<br> <button>Restart</button>').click(function () {
+                    location.reload();
+                }));
+            }
+        } else {
+            $("#attack").css("visibility", "hidden");
+            $("#defender").empty();
+            $("#message").empty();
+            victories++;
+            if (victories === 4) {
+                $("#attack").remove();
+                $("#character").remove();
+                $("#enemies").remove();
+                $("#enemy-choice").remove();
+                $("#message").text("You Win! GAME OVER!!!");
+                $("#message").append($('<br> <button>Restart</button>').click(function () {
+                    location.reload();
+                }));
+                
+            }
+            else {
+                $("#message").append("You Defeated " + chosenEnemy.name + ".");
+                $("#message").append('<br>', "Select a new Enemy.");
+                $("#character").empty();
+                load(chosenChar, "#character");
+                $("#enemies").empty();
+                for (var i = 0; i < enemies.length; i++) {
+                    load(enemies[i], '#enemies');
+                }
+            }
+        }
+        turn++;
+        if (".hitPoints" < 30){
+            $(".hitPoints").css("color: #ff2400;")
+        };
+    });
+});
