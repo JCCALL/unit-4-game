@@ -29,6 +29,18 @@ h1 {
     font-weight: bolder;
     margin-left: 5vw;
 }
+#hero {
+    margin-left: 18vw;
+    font-size: 30px;
+    font-family: trajan;
+}
+
+#bad {
+    margin-left: 5vw;
+    font-size: 30px;
+    font-family: trajan;
+}
+
 #enemy-choice{
     margin-top: 100px;
 }
@@ -102,11 +114,11 @@ h1 {
 
 #defender {
     position: absolute;
-    top: 7.5vh;
+    top: 6.5vh;
     right: 20vw;
 }
 
-.location {
+.arena {
     position: absolute;
     top: 28vh;
     left: 45vw;
@@ -115,7 +127,7 @@ h1 {
 #message {
     font-family: trajan;
     position: absolute;
-    color: #b1b1b3;
+    color: #f5f5f5;
     top: 43vh;
     left: 31vw;
     z-index: 1;

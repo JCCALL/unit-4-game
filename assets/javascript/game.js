@@ -71,13 +71,13 @@ $(document).ready(function () {
         }
         if (area === "#defender") {
             charDiv.addClass("defender");
-            var title = $("<h1>");
+            var title = $("<h1 id='bad'>");
             title.text("Defender");
             $(area).prepend(title);
         }
         if (area === "#character") {
             charDiv.addClass("user-character");
-            var title = $("<h1>");
+            var title = $("<h1 id='hero'>");
             title.text("Your Character");
             $(area).prepend(title);
         }
@@ -92,7 +92,7 @@ $(document).ready(function () {
     $(document).on('click', '.choice', function () {
 
         var name = $(this).attr("id");
-       // $('#playAudio')[0].play();
+        $('#playAudio')[0].play();
         if (name !== hero) {
             for (var key in characters) {
                 if (key === name) {
