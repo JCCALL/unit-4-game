@@ -49,6 +49,7 @@ $(document).ready(function () {
     var enemies = [];
     var victories = 0;
     var turn = 1;
+    //var audio = $("#playAudio")
 
     function load(char, area) {
         str = char.name.replace(/\s+/g, '');
@@ -91,7 +92,7 @@ $(document).ready(function () {
     $(document).on('click', '.choice', function () {
 
         var name = $(this).attr("id");
-
+       // $('#playAudio')[0].play();
         if (name !== hero) {
             for (var key in characters) {
                 if (key === name) {
@@ -183,7 +184,7 @@ $(document).ready(function () {
                 }
             }
         }
-        turn++;
-       
+        turn++;    
     });
+    
 });
