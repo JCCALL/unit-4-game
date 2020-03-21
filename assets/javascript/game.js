@@ -4,15 +4,15 @@ $(document).ready(function () {
 
         "Batman": {
             name: "Batman",
-            hp: 140,
-            ap: 13,
-            cap: 15,
+            hp: 170,
+            ap: 14,
+            cap: 17,
             image: "assets/images/batman"
         },
 
         "Nightwing": {
             name: "Nightwing",
-            hp: 145,
+            hp: 160,
             ap: 11,
             cap: 18,
             image: "assets/images/nightwing"
@@ -20,30 +20,30 @@ $(document).ready(function () {
 
         'Joker': {
             name: "Joker",
-            hp: 160,
-            ap: 9,
+            hp: 155,
+            ap: 10,
             cap: 20,
             image: "assets/images/joker"
         },
 
         'Deathstroke': {
             name: "Deathstroke",
-            hp: 115,
-            ap: 18,
-            cap: 25,
+            hp: 165,
+            ap: 13,
+            cap: 22,
             image: "assets/images/deathstroke"
         },
 
         'Bane': {
             name: "Bane",
-            hp: 135,
-            ap: 12,
+            hp: 250,
+            ap: 15,
             cap: 30,
             image: "assets/images/bane"
         }
     };
 
-    var chosenChar;
+    var hero;
     var chosenEnemy;
     var chosenEnemyIndex = 0;
     var enemies = [];
@@ -60,10 +60,10 @@ $(document).ready(function () {
         $(area).append(charDiv);
 
         if (area === "#character-choice") {
-            charDiv.addClass("select");
+            charDiv.addClass("choice");
         }
         else {
-            charDiv.removeClass("select");
+            charDiv.removeClass("choice");
         }
         if (area === "#enemies") {
             charDiv.addClass("enemy");
@@ -88,21 +88,21 @@ $(document).ready(function () {
         }
     }
 
-    $(document).on('click', '.select', function () {
+    $(document).on('click', '.choice', function () {
 
         var name = $(this).attr("id");
 
-        if (name !== chosenChar) {
+        if (name !== hero) {
             for (var key in characters) {
                 if (key === name) {
-                    chosenChar = characters[key];
+                    hero = characters[key];
                 }
                 else {
                     enemies.push(characters[key]);
                 }
             }
             $("#character-choice").empty();
-            load(chosenChar, '#character');
+            load(hero, '#character');
 
             for (var i = 0; i < enemies.length; i++) {
                 load(enemies[i], '#enemies');
@@ -133,9 +133,9 @@ $(document).ready(function () {
 
     $(document).on('click', '#attack', function () {
 
-        $("#message").text("You attacked " + chosenEnemy.name + " for " + (chosenChar.ap * turn) + " damage.");
+        $("#message").text("You attacked " + chosenEnemy.name + " for " + (hero.ap * turn) + " damage.");
         $("#message").append("<br>")
-        chosenEnemy.hp = (chosenEnemy.hp - (chosenChar.ap * turn));
+        chosenEnemy.hp = (chosenEnemy.hp - (hero.ap * turn));
 
         if (chosenEnemy.hp > 0) {
             $("#defender").empty();
@@ -143,12 +143,12 @@ $(document).ready(function () {
 
             $("#message").append(chosenEnemy.name + " attacked you back for " + chosenEnemy.cap + " damage.");
 
-            chosenChar.hp = (chosenChar.hp - chosenEnemy.cap);
+            hero.hp = (hero.hp - chosenEnemy.cap);
 
             $("#character").empty();
-            load(chosenChar, "#character");
+            load(hero, "#character");
 
-            if (chosenChar.hp <= 0) {
+            if (hero.hp <= 0) {
                 $("#attack").remove();
                 $("#message").empty();
                 $("#message").text("You Lose! Try Again!!!");
@@ -176,7 +176,7 @@ $(document).ready(function () {
                 $("#message").append("You Defeated " + chosenEnemy.name + ".");
                 $("#message").append('<br>', "Select a new Enemy.");
                 $("#character").empty();
-                load(chosenChar, "#character");
+                load(hero, "#character");
                 $("#enemies").empty();
                 for (var i = 0; i < enemies.length; i++) {
                     load(enemies[i], '#enemies');
@@ -184,8 +184,6 @@ $(document).ready(function () {
             }
         }
         turn++;
-        if (".hitPoints" < 30){
-            $(".hitPoints").css("color: #ff2400;")
-        };
+       
     });
 });
