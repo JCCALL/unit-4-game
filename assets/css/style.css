@@ -42,6 +42,7 @@ h1 {
     padding: 10px;
     cursor: pointer;
     position: absolute;
+    visibility: hidden;
 }
 
 #attack:hover {
@@ -101,7 +102,7 @@ h1 {
 
 #defender {
     position: absolute;
-    top: 9vh;
+    top: 7.5vh;
     right: 20vw;
 }
 
@@ -109,10 +110,6 @@ h1 {
     position: absolute;
     top: 28vh;
     left: 45vw;
-}
-
-#attack {
-    visibility: hidden;
 }
 
 #message {
