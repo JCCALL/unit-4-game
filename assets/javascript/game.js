@@ -4,42 +4,50 @@ $(document).ready(function () {
 
         "Batman": {
             name: "Batman",
-            hp: 170,
+            hp: 180,
             ap: 14,
             cap: 17,
-            image: "assets/images/batman"
+            image: "assets/images/batman.png"
         },
 
         "Nightwing": {
             name: "Nightwing",
-            hp: 160,
+            hp: 165,
             ap: 11,
             cap: 18,
-            image: "assets/images/nightwing"
+            image: "assets/images/nightwing.png"
         },
 
-        'Joker': {
+        "Joker": {
             name: "Joker",
-            hp: 155,
+            hp: 169,
             ap: 10,
             cap: 20,
-            image: "assets/images/joker"
+            image: "assets/images/joker.png"
         },
 
-        'Deathstroke': {
+        "Harley Quinn": {
+            name: "Harley Quinn",
+            hp: 160,
+            ap: 9,
+            cap: 17,
+            image: "assets/images/harleyquinn.png"
+        },
+
+        "Deathstroke": {
             name: "Deathstroke",
-            hp: 165,
+            hp: 170,
             ap: 13,
-            cap: 22,
-            image: "assets/images/deathstroke"
+            cap: 19,
+            image: "assets/images/deathstroke.png"
         },
 
-        'Bane': {
+        "Bane": {
             name: "Bane",
-            hp: 250,
+            hp: 200,
             ap: 15,
-            cap: 30,
-            image: "assets/images/bane"
+            cap: 21,
+            image: "assets/images/bane.png"
         }
     };
 
@@ -49,13 +57,13 @@ $(document).ready(function () {
     var enemies = [];
     var victories = 0;
     var turn = 1;
-    //var audio = $("#playAudio")
+    
 
     function load(char, area) {
         str = char.name.replace(/\s+/g, '');
         var charDiv = $("<div class='character' id='" + char.name + "'/div>");
         var charName = $("<p class='name' /p>").text(char.name);
-        var charImage = $("<img class='charPic' id='" + str.toLowerCase() + "'>").attr("src", char.image + ".png");
+        var charImage = $("<img class='charPic' id='" + str.toLowerCase() + "'>").attr("src", char.image);
         var charHP = $("<p class='hitPoints' /p>").text(char.hp);
         charDiv.append(charName).append(charImage).append(charHP);
         $(area).append(charDiv);
@@ -162,7 +170,7 @@ $(document).ready(function () {
             $("#defender").empty();
             $("#message").empty();
             victories++;
-            if (victories === 4) {
+            if (victories === 5) {
                 $("#attack").remove();
                 $("#character").remove();
                 $("#enemies").remove();
@@ -186,5 +194,4 @@ $(document).ready(function () {
         }
         turn++;    
     });
-    
 });
