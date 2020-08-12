@@ -19,17 +19,6 @@ RPG Game that allows user to pick a character and fight against the remaining ch
 
 - [Jquery](https://jquery.com/)
 
-
-## NPM's Used
-
-- [Express](https://www.npmjs.com/package/express)
-- [Axios](https://www.npmjs.com/package/axios)
-- [bcrypt](https://www.npmjs.com/package/bcrypt)
-- [dotenv](https://www.npmjs.com/package/dotenv)
-- [Express-Handlebars](https://www.npmjs.com/package/express-handlebars)
-- [mySQL2](https://www.npmjs.com/package/mysql2)
-- [Sequelize](https://www.npmjs.com/package/sequelize)
-
 ## Version
 
 - [Github](https://github.com/)
